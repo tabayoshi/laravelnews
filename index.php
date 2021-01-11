@@ -19,11 +19,17 @@
 
   // 初期値設定
   $title_alert = 'null';
-  $article_alert ='null';
+  $article_alert = 'null';
 
 // タイトルと記事が入力されていない場合
   if ($title == '') {
     echo '・タイトルは必須です。<br>';
+  } else {
+    echo '';
+  }
+
+  if ($title <= 30) {
+    echo '・タイトルは30文字以下です。<br>';
   } else {
     echo '';
   }
@@ -55,7 +61,7 @@
 // 入力された記事を表示する
 echo('<h2>' . $title . '</h2>');
 echo('<p>' . $article . '</p>');
-if ($title !== '' && $article !== "") {
+if ($title !== '' && $article !== '') {
   echo('<a href="#">記事全文・コメントを見る</a>');
   echo('<hr>');
 }
