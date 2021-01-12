@@ -1,3 +1,15 @@
+<?php
+
+  $fp = fopen('data.csv', 'a+b');
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    fputcsv($fp, [$_POST['title'], $_POST['article']]);
+    rewind($fp);
+  }
+    while ($row = fgetcsv($fp)) {
+      $rows[] = $row;
+    }
+    fclose($fp);
+?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -7,71 +19,62 @@
   <title>Laravel News</title>
 </head>
 <body>
+  <div>
   <h1>Laravel News</h1>
-  <p>さあ、最新のニュースをシェアしよう</p>
-  <form method="POST" action="<?php echo($_SERVER['PHP_SELF'])?>">
+  </div>
 
+  <div>
+  <h2>さあ、最新のニュースをシェアしましょう</h2>
+  
+
+  <form method="POST" action="<?php echo($_SERVER['PHP_SELF'])?>">
+    タイトル:<input type="text" name="title" value=""><br>
+        記事:<input type="text" name="article" value=""><br>
+    <!-- <input type="button" action="alert.php"  method="POST" value="投稿"></input> -->
+    <input type="submit" value="投稿"></input>
+  </form>
+  <hr>
+  </div>
+
+    <?php if (!empty($rows)): ?>
+    <?php foreach ($rows as $row): ?>
+        <h3><?=$row[0]?></h3><br>
+        <p><?=$row[1]?></p>
+        <a href="edit.php">記事全文・コメントを見る</a>
+        <hr>
+    <?php endforeach; ?>
+      </ul>
+    <?php else: ?>
+      <p>投稿はまだありません</p>
+    <?php endif; ?>
+  <div>
   <?php
 
-// 変数設定
-  $title = $_POST['title'];
-  $article = $_POST['article'];
-
-  // 初期値設定
-  $title_alert = 'null';
-  $article_alert = 'null';
+// 初期値設定
+//   $title_alert = 'null';
+//   $article_alert = 'null';
 
 // タイトルと記事が入力されていない場合
-  if ($title == '') {
-    echo '・タイトルは必須です。<br>';
-  } else {
-    echo '';
-  }
+//   if ($title == '') {
+//     echo '・タイトルは必須です。<br>';
+//   } else {
+//     echo '';
+//   }
+  
+// // タイトルが30文字以上の場合
+//   if ($title >= 30) {
+//     echo '・タイトルは30文字以下です。<br>';
+//   } else {
+//     echo '';
+//   }
 
-  if ($title <= 30) {
-    echo '・タイトルは30文字以下です。<br>';
-  } else {
-    echo '';
-  }
-
-  if ($article == '') {
-    echo '・記事は必須です。<br>';
-  } else {
-    echo '';
-  }
+//   if ($article == '') {
+//     echo '・記事は必須です。<br>';
+//   } else {
+//     echo '';
+//   }
     
   ?>
 
-<!-- 入力フォーム -->
-  <br>
-    タイトル:
-    <input type="text" name="title"><br>
-    記事:
-    <input type="textarea" name="article" cols="50" rows="10"><br>
-    <input type="submit" action="" value="投稿">
-  </form>
-  <hr>
-
-  <?php
-
-//入力された記事を投稿するアラート
-// $test_alert = "<script type='text/javascript'>alert('テストです。')</script>";
-// echo $test_alert;
-
-// 入力された記事を表示する
-echo('<h2>' . $title . '</h2>');
-echo('<p>' . $article . '</p>');
-if ($title !== '' && $article !== '') {
-  echo('<a href="#">記事全文・コメントを見る</a>');
-  echo('<hr>');
-}
-
-
-//１ページの記事の表示数
-define('MAX', '10');
-
-// ページング
-echo('<a herf="#"></a>');
-  ?>
 </body>
 </html>
