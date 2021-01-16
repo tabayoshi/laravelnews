@@ -1,0 +1,70 @@
+/* 掲示板------------------------------------- */
+ header {
+  background: #BDFFBE;
+  height: 40px;
+}
+
+header p  {
+  font-size: 24px;
+  padding: 3px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+#title {
+  width: 500px;
+  height: 28px;
+  border-radius: 5px;
+}
+
+.article {
+  padding-left: 35px;
+  margin-bottom: 10px;
+}
+
+.article_title {
+  vertical-align: top;
+}
+
+#article {
+  width: 500px;
+  border-radius: 5px;
+}
+
+.button {
+  background: #FDAB1B;
+  color: #fff;
+  font-size: 16px;
+  padding: 8px 20px;
+  border-radius: 30px;
+  margin-left: 500px;
+}
+
+/* コメント------------------------------------- */
+.comment_box {
+  width: 200px;
+  height: 170px;
+  background: #B3E5FF;
+}
+
+.comment {
+  width: 196px;
+  border-style: none;
+  background: #a6d3ec;
+}
+
+.comment_btn {
+  font-size: 16px;
+  padding: 13px 19px;
+  border: 1px  dashed black;
+  background: #F2FCFF;
+  margin-top: 65px;
+  margin-left: 35px;
+}
