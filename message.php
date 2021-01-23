@@ -1,26 +1,16 @@
 <?php
-
-var_dump('$id');
-
 $id = $_GET['id'];
 echo $id ;
-  $fp = fopen('data.csv', 'a+b');
-  $data = 'data.csv';
- // --------------------------------------------------
 
-  // -------------------------------------------------
-          if(file_exists($data)) {
-            $id = file($data);
-          }
-  while ($row = fgetcsv($fp)) { 
-    $rows[] = $row;
+  $fp = fopen('data.csv', 'a+b');
+    while ($row = fgetcsv($fp)) {
+      if($row[0] === $id) {
+        $rows[] = $row;
+      }
     }
 
   fclose($fp);
-  
-  
-
-
+// --------------------------------------------------
   if( !empty($_POST['comment_btn'])) {
     
     // コメントが未入力時のチェック ------------------
