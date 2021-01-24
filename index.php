@@ -3,26 +3,27 @@
     
     // タイトルが未入力時のチェック -----------------
     if( empty($_POST['title'])) {
-      $error_text[] =  'タイトルは必須です。<br>';
+      $error_text[] =  'タイトルは必須です。';
     }
     
     // タイトルが文字数30を超えた時のチェック --------
     if ( strlen($_POST['title']) >= 30) {
-      $error_text[] =  'タイトルは30文字以下です。<br>';
+      $error_text[] =  'タイトルは30文字以下です。';
     } 
     
     //記事が未入力時のチェック -----------------------
     if ( empty($_POST['article'])) {
       $error_text[] =  '記事は必須です。';
     }
-    
+
+    //csvファイルへの書き込み -----------------------
     if (empty($error_text)) {                                     
       
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $fp = fopen('data.csv', 'a+b');
-        $title = $_POST['title'];
-        $article = $_POST['article'];
-        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          $fp = fopen('data.csv', 'a+b');
+          $title = $_POST['title'];
+          $article = $_POST['article'];
+          
         // 投稿番号 -----------------------------------
         $data = 'data.csv';
         if(file_exists($data)) {
@@ -32,16 +33,18 @@
         fputcsv($fp, [$id, $title, $article]);
         rewind($fp);
       }
-      header("Location:http://localhost/laravelnews/index.php");
       fclose($fp);
+      header("Location:http://localhost/laravelnews/index.php");
     }  
   }
-      
+
+  // csvファイルからの読み込み -----------------------------------
   $fp = fopen('data.csv', 'a+b');
     while ($row = fgetcsv($fp)) {
       $rows[] = $row;
-      $rows1 = array_reverse($rows); //新しい投稿を1番上にする
-    }
+      //新しい投稿を1番上にする ----------------------------------
+      $rows_reverse = array_reverse($rows); 
+  }
   fclose($fp);
 ?>
     
@@ -82,7 +85,7 @@
         
         <div class="article">
           <label class="article_title">記事：</label>
-          <textarea type="text" name="article" cols="50" rows="10" value=""></textarea>
+          <textarea name="article" cols="50" rows="10" value=""></textarea>
         </div>
       
         <input type="submit" class="button" name="btn_submit" value="投稿">
@@ -90,10 +93,10 @@
       <hr>
     </div>
 
-    <div>
       <!-- 入力データ表示 -->
-      <?php if (!empty($rows1)): ?>
-        <?php foreach ($rows1 as $row): ?>
+    <div>
+      <?php if (!empty($rows_reverse)): ?>
+        <?php foreach ($rows_reverse as $row): ?>
           <p><?=$row[0]?></p>
           <h3><?=$row[1]?></h3>
           <p><?=$row[2]?></p>
