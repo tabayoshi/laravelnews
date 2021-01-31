@@ -29,6 +29,8 @@
     if ( empty($_POST['text'])) {
       $error_text[] =  '記事は必須です。';
     }
+
+  // 投稿書き込み ------------------------------------
   if (empty($error_text)) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $title = $_POST['title'];
@@ -126,7 +128,7 @@
         <?php foreach ($rows_reverse as $row): ?>
           <p><?php echo $row['id'] ?></p>
           <h3><?php echo $row['title'] ?></h3>
-          <div><?php echo $row['text'] ?></div>
+          <p><?php echo $row['text'] ?></p>
           <a href="message.php?id=<?php echo $row['id'] ?>">全文・コメントを見る</a>
           <hr>
         <?php endforeach; ?>
