@@ -149,16 +149,13 @@
   //コメントを削除ボタンを押した時 --------------------
   if( !empty($_POST['delete'])) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $id = $_POST['id'];
       // DELETE文の発行 ---------------------------
-      $result_delete = mysqli_query($link, "DELETE FROM comments WHERE id = $id");
-      if(!$result_delete) {
-    die("クエリ失敗" . mysqli_error());
-  } else {
-    // テスト用
-    echo "クエリ成功";
-    // echo "<br><br>";
-  }
+      mysqli_query($link, "DELETE FROM comments WHERE id = $id");
+    
+
     } 
+  } 
     
     // データベース切断
     $close = mysqli_close($link);
@@ -166,7 +163,6 @@
       // echo "切断成功3";
       // echo "<br>";
     }
-  }
 
 ?>
 
@@ -219,7 +215,11 @@
         <?php echo $row['id'] ?><br>  <!--テスト用 後で消す-->
         <?php echo $row['article_id'] ?><br>  <!--テスト用 後で消す-->
         <?php echo $row['comment'] ?><br>
-        <input type="submit" class="delete_btn" name="delete" value="コメントを削除"> 
+        <!-- コメント削除 -->
+        <form action="" method="POST">
+          <input type="submit" class="delete_btn" name="delete" value="コメントを削除">
+          <input type="hidden" name="id" value="<?php echo $row['id']?>">
+        </form>
       </div>
     <?php endforeach; ?>
   <?php endif; ?>
