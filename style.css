@@ -47,12 +47,21 @@ h2 {
   margin-left: 500px;
 }
 
-/* コメント------------------------------------- */
+/* コメント入力------------------------------------- */
+.content {
+  height: 500px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
 .comment_box {
+  display: block;
   width: 200px;
   height: 170px;
   background: #B3E5FF;
+  margin-right: 20px;
 }
+
 
 .comment {
   width: 196px;
@@ -66,5 +75,23 @@ h2 {
   border: 1px  dashed black;
   background: #F2FCFF;
   margin-top: 65px;
+  margin-left: 35px;
+}
+
+/* コメント出力 -----------------------------------*/
+.comment1_box {
+  display: block;
+  width: 196px;
+  height: 170px;
+  margin-right: 20px;
+  background: hsl(57, 100%, 85%);
+}
+
+.delete_btn {
+  font-size: 16px;
+  padding: 13px 19px;
+  border: 1px  dashed black;
+  background: #F2FCFF;
+  margin-top: 30px;
   margin-left: 35px;
 }
